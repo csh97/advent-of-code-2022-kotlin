@@ -17,7 +17,7 @@ fun main() {
             "Z" -> { partOneScore += 3 }
         }
 
-        val move = Move.find(it.first)!!
+        val move = Move.valueOf(it.first)!!
         if (it.second == move.winningMove) {
             partOneScore += 6
         } else if (it.second == move.matching) {
@@ -29,18 +29,18 @@ fun main() {
     rounds.forEach {
         when (it.second) {
             "X" -> {
-                val winningMove = Move.find(it.first)?.winningMoveActual
+                val winningMove = Move.valueOf(it.first)?.winningMoveActual
                 val moveSet = mutableListOf("A", "B", "C")
                 moveSet.removeAll(setOf(it.first, winningMove))
-                partTwoScore += Move.find(moveSet.first())!!.points
+                partTwoScore += Move.valueOf(moveSet.first())!!.points
             }
             "Y" -> {
-                partTwoScore += Move.find(it.first)!!.points
+                partTwoScore += Move.valueOf(it.first)!!.points
                 partTwoScore += 3
             }
             "Z" -> {
-                val winningMove = Move.find(it.first)?.winningMoveActual
-                partTwoScore += Move.find(winningMove!!)!!.points
+                val winningMove = Move.valueOf(it.first)?.winningMoveActual
+                partTwoScore += Move.valueOf(winningMove!!)!!.points
                 partTwoScore += 6
             }
         }
@@ -56,10 +56,4 @@ enum class Move(val winningMoveActual: String, val points: Int, val winningMove:
     A("B", 1, "Y", "X"),
     B("C", 2, "Z", "Y"),
     C("A", 3, "X", "Z");
-
-    companion object {
-        fun find(name: String): Move? {
-            return Move.values().find { it.name == name }
-        }
-    }
 }
